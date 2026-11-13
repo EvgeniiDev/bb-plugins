@@ -47,6 +47,8 @@ export interface DocksidePreferences {
   showProviderIcons: boolean;
   showPullRequestMetadata: boolean;
   showRelativeTime: boolean;
+  /** Fork: lift active thread families above the project groups. */
+  showActiveSection: boolean;
 }
 
 export const CUSTOM_COLOR_DEFAULTS = {
@@ -187,6 +189,7 @@ export function resolveDocksidePreferences(
       true,
     ),
     showRelativeTime: readBoolean(values?.showRelativeTime, true),
+    showActiveSection: readBoolean(values?.showActiveSection, true),
   };
 }
 

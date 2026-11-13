@@ -365,6 +365,13 @@ export default function plugin(bb: BbPluginApi) {
       label: "Show relative time",
       default: true,
     },
+    showActiveSection: {
+      type: "boolean",
+      label: "Lift active threads above projects",
+      description:
+        "In projects mode, show Needs you, Working, Failed and Unread families from every project in one section above the project groups.",
+      default: true,
+    },
   });
 
   const db = bb.storage.database();

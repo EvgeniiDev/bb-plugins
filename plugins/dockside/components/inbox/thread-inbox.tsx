@@ -74,8 +74,9 @@ import {
   writeProjectOrder,
   type ProjectMoveResult,
 } from "@/lib/project-order";
-import { familyIsPinned, groupFamiliesByStatus } from "@/lib/status-groups";
+import { familyIsPinned, groupFamiliesByStatus, activeFamilies, splitActiveFamilies } from "@/lib/status-groups";
 import { groupSidebarFamilies } from "@/lib/sidebar-sections";
+import { ActiveSection } from "@/components/inbox/active-section";
 
 const EMPTY_STATE_CLASS = "px-2 py-6 text-center text-xs text-muted-foreground";
 
@@ -301,13 +302,31 @@ export function ThreadInbox({
     () => {
       const families = projectGroups.flatMap((group) => group.families);
       if (activePreset === "environment") {
-        return groupSidebarFamilies(families);
+        return groupSidebarFamilies(families, now);
       }
       const groups = groupFamiliesByStatus(families, now);
       return activePreset === "status" ? groups : groups.filter((group) => group.kind === "pinned");
     },
     [activePreset, now, projectGroups],
   );
+  // Fork: in projects mode, fold every live family (needs you, working,
+  // failed, unread) into one shelf above the project groups and take it out
+  // of its project so the thread is drawn exactly once.
+  const liftActive = showProjectGroups && preferences.showActiveSection;
+  const activeShelf = useMemo(
+    () => splitActiveFamilies(projectGroups, now, liftActive),
+    [liftActive, now, projectGroups],
+  );
+  const activeFamiliesForShelf = useMemo(
+    () =>
+      liftActive
+        ? activeFamilies(unfilteredProjectGroups, now).filter((family) =>
+            activeShelf.liftedRootIds.has(family.root.id),
+          )
+        : [],
+    [activeShelf.liftedRootIds, liftActive, now, unfilteredProjectGroups],
+  );
+  const projectGroupsForDisplay = activeShelf.groups;
   const projectNames = useMemo(() => new Map(projects.map((project) => [project.id, project.name])), [projects]);
   const showParkedShelves = !selectionMode;
   const visibleTotal = showParkedShelves
@@ -808,7 +827,25 @@ export function ThreadInbox({
                     projectColorOverrides={projectColorOverrides}
                   />
                 ))}
-            {showProjectGroups ? projectGroups
+            {activeFamiliesForShelf.length > 0 ? (
+              <ActiveSection
+                families={activeFamiliesForShelf}
+                providerInfoById={providerInfoById}
+                activeThreadId={activeThreadId}
+                forceExpanded={searching}
+                lifecycle={lifecycle}
+                onNavigate={onNavigate}
+                now={now}
+                selectionMode={selectionMode}
+                selectedRootIds={selectedRootIds}
+                selectionHintId={selectionHintId}
+                onToggleRoot={changeSelectedRoot}
+                preferences={preferences}
+                projectNames={projectNames}
+                projectColorOverrides={projectColorOverrides}
+              />
+            ) : null}
+            {showProjectGroups ? projectGroupsForDisplay
               .map((group) => ({ ...group, families: group.families.filter((family) => !familyIsPinned(family)) }))
               .filter((group) => group.families.length > 0)
               .map((group) => (

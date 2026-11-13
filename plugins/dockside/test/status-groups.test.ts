@@ -91,9 +91,9 @@ describe("groupFamiliesByStatus", () => {
       { root: thread({ id: "jupiter", environment: { ...environment, workspaceDisplayKind: "managed-worktree" }, host: { id: "jupiter", name: "Jupiter" } }), children: [] },
       { root: thread({ id: "none" }), children: [] },
     ];
-    const groups = groupSidebarFamilies(families);
+    const groups = groupSidebarFamilies(families, DAY_MS);
     assert.deepEqual(groups.map((group) => group.label), ["main · Mac", "main · Jupiter", "No environment"]);
     assert.deepEqual(groups.map((group) => group.families.map((family) => family.root.id)), [["mac", "mac2"], ["jupiter"], ["none"]]);
-    assert.deepEqual(groupSidebarFamilies([]), []);
+    assert.deepEqual(groupSidebarFamilies([], DAY_MS), []);
   });
 });

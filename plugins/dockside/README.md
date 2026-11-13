@@ -9,6 +9,14 @@
 
 **Stable projects, clear attention, inline agents.**
 
+> **Fork note (EvgeniiDev/bb-plugins).** This fork adds an **Active** shelf on
+> top of projects mode: every thread family that is **Needs you**, **Working**,
+> **Failed** or **Unread** — from all projects — is lifted into one section
+> above the project groups, each row carrying its project badge, and is no
+> longer duplicated under its project. The Status grouping now also lists a
+> live status section per project. Toggle it under the plugin setting
+> **"Lift active threads above projects"** (on by default).
+
 ![bb ≥ 0.36](https://img.shields.io/badge/bb-%E2%89%A5%200.36-88C0D0?style=flat-square)
 ![any platform](https://img.shields.io/badge/platform-any-3FA266?style=flat-square)
 ![experimental slot](https://img.shields.io/badge/uses-experimental%20SDK%20slot-F1B467?style=flat-square)

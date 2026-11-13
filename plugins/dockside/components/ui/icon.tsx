@@ -30,6 +30,7 @@ import {
   UserAdd01Icon,
   ViewIcon,
   WorkflowCircle03Icon,
+  ZapIcon,
 } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 import type { CSSProperties } from "react";
@@ -65,6 +66,7 @@ const ICON_MAP = {
   Terminal: ComputerTerminal01Icon,
   UserRoundPlus: UserAdd01Icon,
   Workflow: WorkflowCircle03Icon,
+  Zap: ZapIcon,
 } as const satisfies Record<string, IconSvgElement>;
 
 export type IconName = keyof typeof ICON_MAP;
