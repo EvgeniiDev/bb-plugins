@@ -77,6 +77,11 @@ import {
 import { familyIsPinned, groupFamiliesByStatus, activeFamilies, splitActiveFamilies } from "@/lib/status-groups";
 import { groupSidebarFamilies } from "@/lib/sidebar-sections";
 import { ActiveSection } from "@/components/inbox/active-section";
+import {
+  readCollapsedProjects,
+  toggleCollapsedProject,
+  writeCollapsedProjects,
+} from "@/lib/collapsed-projects";
 
 const EMPTY_STATE_CLASS = "px-2 py-6 text-center text-xs text-muted-foreground";
 
@@ -144,6 +149,7 @@ export function ThreadInbox({
   const [selectionMode, setSelectionMode] = useState(false);
   const [familyOrder, setFamilyOrder] = useState(readFamilyOrder);
   const [projectOrder, setProjectOrder] = useState(readProjectOrder);
+  const [collapsedProjects, setCollapsedProjects] = useState(readCollapsedProjects);
   const [reorderAnnouncement, setReorderAnnouncement] = useState("");
   const [selectedRootIds, setSelectedRootIds] = useState<Set<string>>(
     () => new Set(),
@@ -371,6 +377,14 @@ export function ThreadInbox({
   useEffect(() => {
     selectionAnchorRootId.current = null;
   }, [workspaceFilter, searchQuery, selectionMode, visibleRootOrderKey]);
+
+  const toggleCollapsed = (projectId: string) => {
+    setCollapsedProjects((current) => {
+      const next = toggleCollapsedProject(current, projectId);
+      writeCollapsedProjects(next);
+      return next;
+    });
+  };
 
   const changeSelectedRoot = (
     threadId: string,
@@ -873,6 +887,8 @@ export function ThreadInbox({
                 onProjectKeyboardMove={reorderProjectByKeyboard}
                 preferences={preferences}
                 projectColorOverrides={projectColorOverrides}
+                collapsed={collapsedProjects.includes(group.project.id)}
+                onToggleCollapsed={toggleCollapsed}
               />
             )) : null}
             {showParkedShelves ? (

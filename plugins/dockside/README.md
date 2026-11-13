@@ -17,6 +17,10 @@
 > live status section per project. Toggle it under the plugin setting
 > **"Lift active threads above projects"** (on by default).
 >
+> Collapsed project groups are remembered per browser
+> (`bb.dockside.collapsed-projects.v1`), so a reload keeps the projects you
+> folded away folded.
+>
 > It also adds a one-click switch between the two lists: a single footer action
 > (panel icon next to Settings) that flips Dockside and bb's built-in list from
 > either side. It writes the server-synced UI preference

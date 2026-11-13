@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useId, useRef } from "react";
 import {
   experimental_useSidebarThreadActions as useSidebarThreadActions,
   type PluginSidebarThread,
@@ -45,8 +45,13 @@ export function ProjectGroup({
   onProjectKeyboardMove,
   preferences,
   projectColorOverrides,
+  collapsed,
+  onToggleCollapsed,
 }: {
   group: ProjectThreadGroup;
+  /** Persisted by the caller, so the choice survives a reload. */
+  collapsed: boolean;
+  onToggleCollapsed: (projectId: string) => void;
   providerInfoById: ReadonlyMap<string, ProviderGlyphInfo>;
   activeThreadId: string | null;
   forceExpanded: boolean;
@@ -80,13 +85,12 @@ export function ProjectGroup({
 }) {
   const actions = useSidebarThreadActions();
   const projectDragStarted = useRef(false);
-  const [expandedByUser, setExpandedByUser] = useState(true);
   const projectListId = useId();
   const threads = group.families.flatMap((family) => [
     family.root,
     ...family.children,
   ]);
-  const expanded = forceExpanded || expandedByUser;
+  const expanded = forceExpanded || !collapsed;
   const badge = projectBadgePresentation(
     group.project.id,
     projectColorOverrides.get(group.project.id),
@@ -144,7 +148,7 @@ export function ProjectGroup({
               event.preventDefault();
               return;
             }
-            setExpandedByUser(!expanded);
+            onToggleCollapsed(group.project.id);
           }}
           onDragStart={(event) => {
             if (!projectReorderEnabled) {
