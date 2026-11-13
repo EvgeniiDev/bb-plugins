@@ -77,6 +77,7 @@ import {
 import { familyIsPinned, groupFamiliesByStatus, activeFamilies, splitActiveFamilies } from "@/lib/status-groups";
 import { groupSidebarFamilies } from "@/lib/sidebar-sections";
 import { ActiveSection } from "@/components/inbox/active-section";
+import { ThreadListSwitch } from "@/components/inbox/thread-list-switch";
 
 const EMPTY_STATE_CLASS = "px-2 py-6 text-center text-xs text-muted-foreground";
 
@@ -709,6 +710,7 @@ export function ThreadInbox({
             >
               <Icon name="ListTodo" className="size-3.5" aria-hidden />
             </button>
+            <ThreadListSwitch />
           </span>
         </div>
         {selectionMode ? (

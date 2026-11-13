@@ -16,6 +16,12 @@
 > longer duplicated under its project. The Status grouping now also lists a
 > live status section per project. Toggle it under the plugin setting
 > **"Lift active threads above projects"** (on by default).
+>
+> It also adds a one-click way back to bb's own list: a **Built-in** button in
+> the Dockside header, and a footer action that flips between the two from
+> either side. Both write the server-synced UI preference
+> `sidebar.threadListProvider` (`dockside/inbox` ⇄ `thread-list/thread-list`),
+> the same setting Settings → Appearance → Sidebar uses.
 
 ![bb ≥ 0.36](https://img.shields.io/badge/bb-%E2%89%A5%200.36-88C0D0?style=flat-square)
 ![any platform](https://img.shields.io/badge/platform-any-3FA266?style=flat-square)

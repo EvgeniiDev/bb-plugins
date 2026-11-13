@@ -6,6 +6,7 @@ import { ThreadInbox } from "@/components/inbox/thread-inbox";
 import { ParentChip } from "@/components/inbox/parent-chip";
 import { DocksideSettingsSection } from "@/components/settings/dockside-settings";
 import { MobileNavigation } from "@/components/mobile/navigation";
+import { toggleThreadList } from "@/lib/thread-list-provider";
 
 export default definePluginApp((app) => {
   app.composer.customize({
@@ -18,6 +19,18 @@ export default definePluginApp((app) => {
     title: "Appearance & behavior",
     description: "Preview the effective Dockside palette and layout settings.",
     component: DocksideSettingsSection,
+  });
+
+  // bb renders this footer button no matter which thread list is active, so it
+  // is the way back from bb's built-in list to Dockside.
+  app.slots.sidebarFooterAction({
+    id: "thread-list-switch",
+    title: "Switch between Dockside and bb's built-in thread list",
+    icon: "Columns2",
+    run: async () => {
+      const ok = await toggleThreadList();
+      if (!ok) console.warn("Dockside could not store the thread list preference.");
+    },
   });
 
   app.slots.experimental_threadList({
