@@ -17,9 +17,9 @@
 > live status section per project. Toggle it under the plugin setting
 > **"Lift active threads above projects"** (on by default).
 >
-> It also adds a one-click way back to bb's own list: a **Built-in** button in
-> the Dockside header, and a footer action that flips between the two from
-> either side. Both write the server-synced UI preference
+> It also adds a one-click switch between the two lists: a single footer action
+> (panel icon next to Settings) that flips Dockside and bb's built-in list from
+> either side. It writes the server-synced UI preference
 > `sidebar.threadListProvider` (`dockside/inbox` ⇄ `thread-list/thread-list`),
 > the same setting Settings → Appearance → Sidebar uses.
 
