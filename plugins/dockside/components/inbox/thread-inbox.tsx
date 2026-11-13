@@ -133,7 +133,8 @@ export function ThreadInbox({
         );
         if (savedPreset) return { kind: "preset", preset: savedPreset };
       } catch { /* Storage can be unavailable in embedded contexts. */ }
-      return { kind: "preset", preset: "status" };
+      // Fork: projects are the default view, with the Active shelf on top.
+      return { kind: "preset", preset: "all" };
     });
   useEffect(() => {
     if (workspaceFilter.kind !== "preset") return;
