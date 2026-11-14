@@ -365,6 +365,13 @@ export default function plugin(bb: BbPluginApi) {
       label: "Show relative time",
       default: true,
     },
+    showMobileNavigation: {
+      type: "boolean",
+      label: "Show thread strip on phones",
+      description:
+        "The previous/next thread strip above the composer on screens up to 767px wide.",
+      default: true,
+    },
     showActiveSection: {
       type: "boolean",
       label: "Lift active threads above projects",

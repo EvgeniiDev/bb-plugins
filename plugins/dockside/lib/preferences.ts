@@ -49,6 +49,8 @@ export interface DocksidePreferences {
   showRelativeTime: boolean;
   /** Fork: lift active thread families above the project groups. */
   showActiveSection: boolean;
+  /** Upstream 0.1.8 brings the phone-width thread strip; it can be turned off. */
+  showMobileNavigation: boolean;
 }
 
 export const CUSTOM_COLOR_DEFAULTS = {
@@ -190,6 +192,7 @@ export function resolveDocksidePreferences(
     ),
     showRelativeTime: readBoolean(values?.showRelativeTime, true),
     showActiveSection: readBoolean(values?.showActiveSection, true),
+    showMobileNavigation: readBoolean(values?.showMobileNavigation, true),
   };
 }
 

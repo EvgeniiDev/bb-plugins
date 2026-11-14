@@ -17,6 +17,9 @@
 > live status section per project. Toggle it under the plugin setting
 > **"Lift active threads above projects"** (on by default).
 >
+> The phone-width thread strip that ships in 0.1.8 can be turned off with the
+> setting **"Show thread strip on phones"** (`showMobileNavigation`).
+>
 > Collapsed project groups are remembered per browser
 > (`bb.dockside.collapsed-projects.v1`), so a reload keeps the projects you
 > folded away folded.

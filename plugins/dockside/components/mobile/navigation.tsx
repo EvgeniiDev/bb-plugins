@@ -115,5 +115,8 @@ function Navigator({ threadId }: { threadId: string }) {
 
 export function MobileNavigation() {
   const { scope } = useComposer();
+  const settings = useSettings();
+  const preferences = resolveDocksidePreferences(settings.values);
+  if (!preferences.showMobileNavigation) return null;
   return scope.kind === "thread" ? <Navigator key={scope.threadId} threadId={scope.threadId} /> : null;
 }

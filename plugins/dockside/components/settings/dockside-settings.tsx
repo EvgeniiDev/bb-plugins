@@ -98,7 +98,8 @@ export function DocksideSettingsSection() {
         providers {preferences.showProviderIcons ? "shown" : "hidden"} · PR metadata{" "}
         {preferences.showPullRequestMetadata ? "shown" : "hidden"} · times{" "}
         {preferences.showRelativeTime ? "shown" : "hidden"} · active shelf{" "}
-        {preferences.showActiveSection ? "on" : "off"}
+        {preferences.showActiveSection ? "on" : "off"} · phone strip{" "}
+        {preferences.showMobileNavigation ? "on" : "off"}
       </p>
     </section>
   );
